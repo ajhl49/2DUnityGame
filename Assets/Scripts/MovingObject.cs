@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovingObject : MonoBehaviour
 {
 
-    public float Speed = 4f;
+    public float Speed = 6f;
     public float SprintMult = 2f;
     public bool Sprint = false;
 
@@ -18,21 +18,26 @@ public class MovingObject : MonoBehaviour
         {
             currentDirection = Vector3.left;
             transform.position += currentDirection * Speed * (Sprint ? SprintMult : 1) * Time.deltaTime;
+            //transform.Translate(currentDirection * Time.deltaTime * (Sprint ? SprintMult : 1) * Time.deltaTime);
+
         }
         if (Input.GetKey(KeyCode.D))
         {
             currentDirection = Vector3.right;
             transform.position += currentDirection * Speed * (Sprint ? SprintMult : 1) * Time.deltaTime;
+            //transform.Translate(currentDirection * Time.deltaTime * (Sprint ? SprintMult : 1) * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.W))
         {
             currentDirection = Vector3.up;
             transform.position += currentDirection * Speed * (Sprint ? SprintMult : 1) * Time.deltaTime;
+            //transform.Translate(currentDirection * Time.deltaTime * (Sprint ? SprintMult : 1) * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.S))
         {
             currentDirection = Vector3.down;
             transform.position += currentDirection * Speed * (Sprint ? SprintMult : 1) * Time.deltaTime;
+            //transform.Translate(currentDirection * Time.deltaTime * (Sprint ? SprintMult : 1) * Time.deltaTime);
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -44,5 +49,20 @@ public class MovingObject : MonoBehaviour
         }
 
     }
-   
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+        if (collision.gameObject.tag == "bomb")
+        {
+            print("BOOM!!!!");
+            Destroy(collision.gameObject);
+        }
+       
+        //if (collision.relativeVelocity.magnitude > 2)
+          //  audio.Play();
+
+    }
+  
+    
+
 }
