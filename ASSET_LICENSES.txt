@@ -42,3 +42,8 @@ Nebula space patterns:
 Mysitemyway.com (webtreats.mysitemyway.com)
 Licensed as Public Domain Work
 http://webtreats.mysitemyway.com/faq/sed-id-imperdiet-elit-posuere/
+
+Tile Assets:
+Jesse McCarthy (opengameart.org)
+Licensed under Creative Commons: By Attribution 3.0
+http://creativecommons.org/licenses/by/3.0/

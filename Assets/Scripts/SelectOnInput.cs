@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SelectOnInput : MonoBehaviour
 {
 
-    public EventSystem eventSystem;
-    public GameObject selectedObject;
+    public EventSystem EventSystem;
+    public GameObject SelectedObject;
 
-    private bool buttonSelected;
+    private bool _buttonSelected;
 
 	// Use this for initialization
 	void Start () {
@@ -15,18 +16,14 @@ public class SelectOnInput : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-	    if (Input.GetAxisRaw("Vertical") != 0 && buttonSelected == false)
-	    {
-	        eventSystem.SetSelectedGameObject(selectedObject);
-	        buttonSelected = true;
-	    }
-		
-	}
+    private void Update () {
+        if (!(Math.Abs(Input.GetAxisRaw("Vertical")) > float.Epsilon) || _buttonSelected) return;
+        EventSystem.SetSelectedGameObject(SelectedObject);
+        _buttonSelected = true;
+    }
 
     private void OnDisable()
     {
-        buttonSelected = false;
+        _buttonSelected = false;
     }
 }

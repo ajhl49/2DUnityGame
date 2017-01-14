@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScrollUV : MonoBehaviour {
 
     void Update()
     {
-        MeshRenderer mr = GetComponent<MeshRenderer>();
+        var meshRenderer = GetComponent<MeshRenderer>();
 
-        Material mat = mr.material;
+        var meshRendererMaterial = meshRenderer.material;
 
-        Vector2 offset = mat.GetTextureOffset("_MainTex");
+        var offset = meshRendererMaterial.GetTextureOffset("_MainTex");
 
         offset.x += Time.deltaTime / 10f;
 
-        mat.SetTextureOffset("_MainTex", offset);
+        meshRendererMaterial.SetTextureOffset("_MainTex", offset);
     }
 }

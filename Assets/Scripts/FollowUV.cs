@@ -1,22 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FollowUV : MonoBehaviour
 {
-    public float parralax = 2f;
+    public float Parralax = 2f;
 
-    void Update()
+    private void Update()
     {
-        MeshRenderer mr = GetComponent<MeshRenderer>();
+        var meshRenderer = GetComponent<MeshRenderer>();
 
-        Material mat = mr.material;
+        var meshRendererMaterial = meshRenderer.material;
 
-        Vector2 offset = mat.GetTextureOffset("_MainTex");
+        var offset = meshRendererMaterial.GetTextureOffset("_MainTex");
 
-        offset.x = transform.position.x / transform.localScale.x / parralax;
-        offset.y = transform.position.y / transform.localScale.y / parralax;
+        offset.x = transform.position.x / transform.localScale.x / Parralax;
+        offset.y = transform.position.y / transform.localScale.y / Parralax;
 
-        mat.SetTextureOffset("_MainTex", offset);
+        meshRendererMaterial.SetTextureOffset("_MainTex", offset);
     }
 }
