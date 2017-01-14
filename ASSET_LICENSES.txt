@@ -1,3 +1,5 @@
+##TITLE SCREEN##
+
 Title screen background photo:
 "The Milky Way panorama" 
 ESO/S. Brunier (eso.org)
@@ -27,3 +29,16 @@ Title screen menu back sound:
 broumbroum (freesound.org)
 Licensed under Creative Commons: By Attribution 3.0
 http://creativecommons.org/licenses/by/3.0/
+
+
+##MAIN GAME##
+Star mesh background:
+"seamless space"
+n4 (opengameart.org)
+Licensed under Creative Commons: 0 License
+http://creativecommons.org/publicdomain/zero/1.0/
+
+Nebula space patterns:
+Mysitemyway.com (webtreats.mysitemyway.com)
+Licensed as Public Domain Work
+http://webtreats.mysitemyway.com/faq/sed-id-imperdiet-elit-posuere/
