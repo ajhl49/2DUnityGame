@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/visualstudio,unity
 
+### Custom Project Sample Folders ###
+Assets/Unity\ UI\ Sample/
+Assets/Unity\ UI\ Sample.meta
+
 ### Unity ###
 /[Ll]ibrary/
 /[Tt]emp/
@@ -88,7 +92,6 @@ artifacts/
 *_p.c
 *_i.h
 *.ilk
-*.meta
 *.obj
 *.pch
 *.pdb
