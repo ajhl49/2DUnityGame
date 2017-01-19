@@ -2,52 +2,19 @@
 
 public class MovingObject : MonoBehaviour
 {
+    
+    public LayerMask BlockingLayer;
 
-    public float Speed = 6f;
-    public float SprintMult = 2f;
-    public bool Sprint;
+    protected BoxCollider2D BoxCollider;
+    protected Rigidbody2D RigidBody2D;
 
-    private Vector3 _currentDirection = Vector3.zero;
-
-
-    void Update()
+    protected virtual void Start()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            _currentDirection = Vector3.left;
-            transform.position += _currentDirection * Speed * (Sprint ? SprintMult : 1) * Time.deltaTime;
-            //transform.Translate(currentDirection * Time.deltaTime * (Sprint ? SprintMult : 1) * Time.deltaTime);
-
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            _currentDirection = Vector3.right;
-            transform.position += _currentDirection * Speed * (Sprint ? SprintMult : 1) * Time.deltaTime;
-            //transform.Translate(currentDirection * Time.deltaTime * (Sprint ? SprintMult : 1) * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            _currentDirection = Vector3.up;
-            transform.position += _currentDirection * Speed * (Sprint ? SprintMult : 1) * Time.deltaTime;
-            //transform.Translate(currentDirection * Time.deltaTime * (Sprint ? SprintMult : 1) * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            _currentDirection = Vector3.down;
-            transform.position += _currentDirection * Speed * (Sprint ? SprintMult : 1) * Time.deltaTime;
-            //transform.Translate(currentDirection * Time.deltaTime * (Sprint ? SprintMult : 1) * Time.deltaTime);
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Sprint = true;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            Sprint = false;
-        }
-
+        BoxCollider = GetComponent<BoxCollider2D>();
+        RigidBody2D = GetComponent<Rigidbody2D>();
     }
-    void OnCollisionEnter2D(Collision2D collision)
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         
         if (collision.gameObject.CompareTag("bomb"))
