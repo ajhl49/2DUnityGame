@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEngine;
+
+
+public enum TileType { Empty, Floor }
 
 public class Tile {
-
-    public enum TileType { Empty, Floor}
-
+    
     private TileType _type = TileType.Empty;
 
     private Action<Tile> _cbTileTypeChanged;
@@ -44,5 +46,24 @@ public class Tile {
     public void UnregisterRegisterTileTypeChangedCallback(Action<Tile> callback)
     {
         if (_cbTileTypeChanged != null) _cbTileTypeChanged -= callback;
+    }
+
+    public bool PlaceObject(InstalledObject objectInstance)
+    {
+        if (objectInstance == null)
+        {
+            // We are uninstalling the current installed object
+            installedObject = null;
+            return true;
+        }
+
+        if (installedObject != null)
+        {
+            Debug.LogError("Trying to assign an installed object to a tile that already has one!");
+            return false;
+        }
+
+        installedObject = objectInstance;
+        return true;
     }
 }
