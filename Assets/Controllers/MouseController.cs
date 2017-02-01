@@ -130,7 +130,7 @@ namespace Controllers
                         {
                             if (buildModeIsObjects)
                             {
-                                // Create the InstalledObject and assign it to the tile
+                                // Create the Furniture and assign it to the tile
                                 // TODO: We are currently assuming walls only
 
                                 WorldController.Instance.World.PlaceInstalledObject(buildModeObjectType, t);

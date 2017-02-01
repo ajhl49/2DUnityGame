@@ -14,9 +14,9 @@ public class Tile {
     private LooseObject looseObject;
     // Single object that is installed on the tile, like a door, bookshelf, etc.
 
-    public InstalledObject InstalledObject { get; protected set; }
+    public Furniture Furniture { get; protected set; }
 
-    private World _world;
+    public World World { get; protected set; }
     public int X { get; protected set; }
     public int Y { get; protected set; }
 
@@ -34,7 +34,7 @@ public class Tile {
 
     public Tile(World world, int x, int y)
     {
-        _world = world;
+        World = world;
         X = x;
         Y = y;
     }
@@ -49,22 +49,22 @@ public class Tile {
         if (_cbTileTypeChanged != null) _cbTileTypeChanged -= callback;
     }
 
-    public bool PlaceObject(InstalledObject objectInstance)
+    public bool PlaceFurniture(Furniture objectInstance)
     {
         if (objectInstance == null)
         {
             // We are uninstalling the current installed object
-            InstalledObject = null;
+            Furniture = null;
             return true;
         }
 
-        if (InstalledObject != null)
+        if (Furniture != null)
         {
             Debug.LogError("Trying to assign an installed object to a tile that already has one!");
             return false;
         }
 
-        InstalledObject = objectInstance;
+        Furniture = objectInstance;
         return true;
     }
 }

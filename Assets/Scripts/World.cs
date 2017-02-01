@@ -12,9 +12,9 @@ public class World
 
     public int Height { get; private set; }
 
-    private Action<InstalledObject> cbInstalledObjectCreated;
+    private Action<Furniture> cbInstalledObjectCreated;
 
-    private Dictionary<string, InstalledObject> installedObjectPrototypes;
+    private Dictionary<string, Furniture> installedObjectPrototypes;
 
     public World(int width = 100, int height = 100)
     {
@@ -38,9 +38,9 @@ public class World
 
     private void CreateInstalledObjectPrototypes()
     {
-        installedObjectPrototypes = new Dictionary<string, InstalledObject>();
+        installedObjectPrototypes = new Dictionary<string, Furniture>();
 
-        var wallPrototype = InstalledObject.CreatePrototype("station_wall_black", 0, 1, 1, true);
+        var wallPrototype = Furniture.CreatePrototype("station_wall_black", 0, 1, 1, true);
 
         installedObjectPrototypes.Add("station_wall_black", wallPrototype);
     }
@@ -87,7 +87,7 @@ public class World
             return;
         }
 
-        var installedObject = InstalledObject.PlaceInstance(installedObjectPrototypes[objectType], tile);
+        var installedObject = Furniture.PlaceInstance(installedObjectPrototypes[objectType], tile);
 
         if (installedObject == null)
         {
@@ -101,12 +101,12 @@ public class World
         }
     }
 
-    public void RegisterInstalledObjectCreated(Action<InstalledObject> callbackFunction)
+    public void RegisterInstalledObjectCreated(Action<Furniture> callbackFunction)
     {
         cbInstalledObjectCreated += callbackFunction;
     }
 
-    public void UnregisterInstalledObjectCreated(Action<InstalledObject> callbackFunction)
+    public void UnregisterInstalledObjectCreated(Action<Furniture> callbackFunction)
     {
         cbInstalledObjectCreated -= callbackFunction;
     }

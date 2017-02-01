@@ -9,25 +9,20 @@ namespace Controllers
         public static WorldController Instance { get; protected set; }
 
         public Sprite FloorSprite;
+        public Sprite EmptySprite;
 
         private Dictionary<Tile, GameObject> tileGameObjectMap;
 
-        private Dictionary<InstalledObject, GameObject> installedObjectMap;
+        private Dictionary<Furniture, GameObject> furnitureObjectMap;
 
-        private Dictionary<string, Sprite> installedObjectSprites;
+        private Dictionary<string, Sprite> furnitureObjectSprites;
 
         public World World { get; protected set; }
 
         // Use this for initialization
         void Start ()
         {
-            installedObjectSprites = new Dictionary<string, Sprite>();
-            Sprite[] constructionWallSprites = Resources.LoadAll<Sprite>("Sprites/SS13Assets/icons/turf/construction_walls");
-
-            foreach (var sprite in constructionWallSprites)
-            {
-                installedObjectSprites[sprite.name] = sprite;
-            }
+            LoadSprites();
 
             if (Instance != null)
             {
@@ -38,10 +33,10 @@ namespace Controllers
             // Create a world with Empty tiles
             World = new World();
 
-            World.RegisterInstalledObjectCreated(OnInstalledObjectCreated);
+            World.RegisterInstalledObjectCreated(OnFurnitureCreated);
 
             tileGameObjectMap = new Dictionary<Tile, GameObject>();
-            installedObjectMap = new Dictionary<InstalledObject, GameObject>();
+            furnitureObjectMap = new Dictionary<Furniture, GameObject>();
 
             // Create a GameObject for each of our tiles, so they show visually.
 
@@ -67,7 +62,21 @@ namespace Controllers
                 }
             }
 
-            World.RandomizeTiles();
+            // Center the Camera
+            Camera.main.transform.position = new Vector3(World.Width/2, World.Height/2, Camera.main.transform.position.z);
+
+            //World.RandomizeTiles();
+        }
+
+        private void LoadSprites()
+        {
+            furnitureObjectSprites = new Dictionary<string, Sprite>();
+            Sprite[] constructionWallSprites = Resources.LoadAll<Sprite>("Sprites/SS13Assets/icons/turf/construction_walls");
+
+            foreach (var sprite in constructionWallSprites)
+            {
+                furnitureObjectSprites[sprite.name] = sprite;
+            }
         }
 	
         // Update is called once per frame
@@ -132,80 +141,90 @@ namespace Controllers
             return World.GetTileAt(x, y);
         }
 
-        public void OnInstalledObjectCreated(InstalledObject installedObject)
+        public void OnFurnitureCreated(Furniture furniture)
         {
             // Create a visual GameObject linked to this data.
 
             // TODO: Does not consider multi-tile objects nor rotated objects
 
-            var gameObject = new GameObject();
+            var furnitureGameObject = new GameObject();
             
-            installedObjectMap.Add(installedObject, gameObject);
+            furnitureObjectMap.Add(furniture, furnitureGameObject);
 
-            gameObject.name = installedObject.ObjectType + "_" + installedObject.Tile.X + "_" + installedObject.Tile.Y;
-            gameObject.transform.position = new Vector3(installedObject.Tile.X, installedObject.Tile.Y, 0);
-            gameObject.transform.SetParent(transform, true);
+            furnitureGameObject.name = furniture.ObjectType + "_" + furniture.Tile.X + "_" + furniture.Tile.Y;
+            furnitureGameObject.transform.position = new Vector3(furniture.Tile.X, furniture.Tile.Y, 0);
+            furnitureGameObject.transform.SetParent(transform, true);
 
             // Currently assuming it to be a wall sprite
-            gameObject.AddComponent<SpriteRenderer>().sprite = GetSpriteForInstalledObject(installedObject);
+            furnitureGameObject.AddComponent<SpriteRenderer>().sprite = GetSpriteForFurniture(furniture);
 
-            installedObject.RegisterOnChangedCallback(OnInstalledObjectChanged);
+            furniture.RegisterOnChangedCallback(OnFurnitureChanged);
         }
 
-        private Sprite GetSpriteForInstalledObject(InstalledObject installedObject)
+        private Sprite GetSpriteForFurniture(Furniture furniture)
         {
-            if (installedObject.LinksToNeighbor == false)
+            if (furniture.LinksToNeighbor == false)
             {
-                return installedObjectSprites[installedObject.ObjectType];
+                return furnitureObjectSprites[furniture.ObjectType];
             }
 
             // Otherwise, the sprite name is more complicated
 
-            string spriteName = installedObject.ObjectType + "_";
+            string spriteName = furniture.ObjectType + "_";
 
             // Check for neighbors North, South, East, West
-            int x = installedObject.Tile.X;
-            int y = installedObject.Tile.Y;
+            int x = furniture.Tile.X;
+            int y = furniture.Tile.Y;
 
             Tile currentTile;
             currentTile = World.GetTileAt(x, y + 1);
-            if (currentTile != null && currentTile.InstalledObject != null && currentTile.InstalledObject.ObjectType == installedObject.ObjectType)
+            if (currentTile != null && currentTile.Furniture != null && currentTile.Furniture.ObjectType == furniture.ObjectType)
             {
                 spriteName += "N";
             }
 
             currentTile = World.GetTileAt(x + 1, y);
-            if (currentTile != null && currentTile.InstalledObject != null && currentTile.InstalledObject.ObjectType == installedObject.ObjectType)
+            if (currentTile != null && currentTile.Furniture != null && currentTile.Furniture.ObjectType == furniture.ObjectType)
             {
                 spriteName += "E";
             }
 
             currentTile = World.GetTileAt(x, y - 1);
-            if (currentTile != null && currentTile.InstalledObject != null && currentTile.InstalledObject.ObjectType == installedObject.ObjectType)
+            if (currentTile != null && currentTile.Furniture != null && currentTile.Furniture.ObjectType == furniture.ObjectType)
             {
                 spriteName += "S";
             }
 
             currentTile = World.GetTileAt(x - 1, y);
-            if (currentTile != null && currentTile.InstalledObject != null && currentTile.InstalledObject.ObjectType == installedObject.ObjectType)
+            if (currentTile != null && currentTile.Furniture != null && currentTile.Furniture.ObjectType == furniture.ObjectType)
             {
                 spriteName += "W";
             }
 
             spriteName += "_1";
 
-            if (installedObjectSprites.ContainsKey(spriteName) == false)
+            if (furnitureObjectSprites.ContainsKey(spriteName) == false)
             {
-                Debug.LogError("GetSpriteForInstalledObject -- No sprites with name: " + spriteName);
+                Debug.LogError("GetSpriteForFurniture -- No sprites with name: " + spriteName);
                 return null;
             }
 
-            return installedObjectSprites[spriteName];
+            return furnitureObjectSprites[spriteName];
         }
 
-        private void OnInstalledObjectChanged(InstalledObject installedObject)
+        private void OnFurnitureChanged(Furniture furniture)
         {
-            Debug.LogError("OnInstalledObjectChanged -- NOT IMPLEMENTED");
+
+            // Make sure the furniture's graphics are correct.
+
+            if (furnitureObjectMap.ContainsKey(furniture) == false)
+            {
+                Debug.LogError("OnFurnitureChanged -- trying to change visuals for furniture not in our map");
+                return;
+            }
+
+            var furnitureGameObject = furnitureObjectMap[furniture];
+            furnitureGameObject.GetComponent<SpriteRenderer>().sprite = GetSpriteForFurniture(furniture);
         }
     }
 }
