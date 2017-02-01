@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,17 +8,11 @@ using UnityEngine;
 /// </summary>
 public class InstalledObject
 {
-    /// <summary>
-    /// The base tile of the object. The InstalledObject sits on the tile, but may be larger or
-    /// smaller than the width/height of the base tile.
-    /// </summary>
-    private Tile tile;
+    public Tile Tile { get; protected set; }
 
-    /// <summary>
-    /// The objectType will be queried by the visual system to determine what sprite to
-    /// render on the screen.
-    /// </summary>
-    private string _objectType;
+    public string ObjectType { get; protected set; }
+
+    private Action<InstalledObject> cbOnChanged;
 
     /// <summary>
     /// Multiplier for entities that are moving across the object. InstalledObjects with
@@ -30,19 +25,22 @@ public class InstalledObject
     private int _width;
     private int _height;
 
+    public bool LinksToNeighbor { get; protected set; }
+
     protected InstalledObject()
     {
-        
+        LinksToNeighbor = false;
     }
 
-    public static InstalledObject CreatePrototype(string objectType, float movementCost = 1f, int width = 1, int height = 1)
+    public static InstalledObject CreatePrototype(string objectType, float movementCost = 1f, int width = 1, int height = 1, bool linksToNeighbor = false)
     {
         var obj = new InstalledObject();
 
-        obj._objectType = objectType;
+        obj.ObjectType = objectType;
         obj._movementCost = movementCost;
         obj._width = width;
         obj._height = height;
+        obj.LinksToNeighbor = linksToNeighbor;
 
         return obj;
     }
@@ -51,11 +49,12 @@ public class InstalledObject
     {
         var obj = new InstalledObject();
 
-        obj._objectType = prototype._objectType;
+        obj.ObjectType = prototype.ObjectType;
         obj._movementCost = prototype._movementCost;
         obj._width = prototype._width;
         obj._height = prototype._height;
-        obj.tile = tile;
+        obj.LinksToNeighbor = prototype.LinksToNeighbor;
+        obj.Tile = tile;
 
         if (!tile.PlaceObject(obj))
         {
@@ -66,5 +65,15 @@ public class InstalledObject
         }
 
         return obj;
+    }
+
+    public void RegisterOnChangedCallback(Action<InstalledObject> callbackFunction)
+    {
+        cbOnChanged += callbackFunction;
+    }
+
+    public void UnregisterOnChangedCallback(Action<InstalledObject> callbackFunction)
+    {
+        cbOnChanged -= callbackFunction;
     }
 }

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 98b92830610b9534b85da1d1d983d2c6
-timeCreated: 1485639115
+timeCreated: 1485934728
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,10 +8,10 @@ TextureImporter:
     21300002: construction_walls_1
     21300004: construction_walls_2
     21300006: construction_walls_3
-    21300008: construction_walls_4
-    21300010: construction_walls_5
-    21300012: construction_walls_6
-    21300014: construction_walls_7
+    21300008: shuttle_white_1
+    21300010: shuttle_white_2
+    21300012: shuttle_white_3
+    21300014: shuttle_white_4
     21300016: construction_walls_8
     21300018: construction_walls_9
     21300020: construction_walls_10
@@ -97,18 +97,18 @@ TextureImporter:
     21300180: construction_walls_90
     21300182: construction_walls_91
     21300184: construction_walls_92
-    21300186: construction_walls_93
-    21300188: construction_walls_94
-    21300190: construction_walls_95
-    21300192: construction_walls_96
-    21300194: construction_walls_97
-    21300196: construction_walls_98
-    21300198: construction_walls_99
-    21300200: construction_walls_100
-    21300202: construction_walls_101
-    21300204: construction_walls_102
-    21300206: construction_walls_103
-    21300208: construction_walls_104
+    21300186: construction_walls_black_EW_1
+    21300188: construction_walls_black_EW_2
+    21300190: construction_walls_black_NS_1
+    21300192: construction_walls_black_NS_2
+    21300194: construction_walls_black_NW_1
+    21300196: construction_walls_black_NE_1
+    21300198: construction_walls_black_SW_1
+    21300200: construction_walls_black_SE_1
+    21300202: construction_walls_black_SEW_1
+    21300204: construction_walls_black_NEW_1
+    21300206: construction_walls_black_NSE_1
+    21300208: construction_walls_black_NSW_1
     21300210: construction_walls_105
     21300212: construction_walls_106
     21300214: construction_walls_107
@@ -117,10 +117,10 @@ TextureImporter:
     21300220: construction_walls_110
     21300222: construction_walls_111
     21300224: construction_walls_112
-    21300226: construction_walls_113
-    21300228: construction_walls_114
-    21300230: construction_walls_115
-    21300232: construction_walls_116
+    21300226: construction_walls_black_S_1
+    21300228: construction_walls_black_N_1
+    21300230: construction_walls_black_E_1
+    21300232: construction_walls_black_W_1
     21300234: construction_walls_117
     21300236: construction_walls_118
     21300238: construction_walls_119
@@ -137,8 +137,8 @@ TextureImporter:
     21300260: construction_walls_130
     21300262: construction_walls_131
     21300264: construction_walls_132
-    21300266: construction_walls_133
-    21300268: construction_walls_134
+    21300266: station_wall_black__1
+    21300268: station_wall_black_1
     21300270: construction_walls_135
     21300272: construction_walls_136
     21300274: construction_walls_137
@@ -160,6 +160,23 @@ TextureImporter:
     21300306: construction_walls_153
     21300308: construction_walls_154
     21300310: construction_walls_155
+    21300312: station_wall_black_EW_1
+    21300314: station_wall_black_EW_2
+    21300316: station_wall_black_NS_1
+    21300318: station_wall_black_NS_2
+    21300320: station_wall_black_NW_1
+    21300322: station_wall_black_NE_1
+    21300324: station_wall_black_SW_1
+    21300326: station_wall_black_ES_1
+    21300328: station_wall_black_ESW_1
+    21300330: station_wall_black_NEW_1
+    21300332: station_wall_black_NES_1
+    21300334: station_wall_black_NSW_1
+    21300336: station_wall_black_S_1
+    21300338: station_wall_black_N_1
+    21300340: station_wall_black_E_1
+    21300342: station_wall_black_W_1
+    21300344: station_wall_black_NESW_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -278,7 +295,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_4
+      name: shuttle_white_1
       rect:
         serializedVersion: 2
         x: 128
@@ -291,7 +308,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_5
+      name: shuttle_white_2
       rect:
         serializedVersion: 2
         x: 160
@@ -304,7 +321,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_6
+      name: shuttle_white_3
       rect:
         serializedVersion: 2
         x: 192
@@ -317,7 +334,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_7
+      name: shuttle_white_4
       rect:
         serializedVersion: 2
         x: 224
@@ -1435,7 +1452,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_93
+      name: station_wall_black_EW_1
       rect:
         serializedVersion: 2
         x: 64
@@ -1448,7 +1465,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_94
+      name: station_wall_black_EW_2
       rect:
         serializedVersion: 2
         x: 96
@@ -1461,7 +1478,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_95
+      name: station_wall_black_NS_1
       rect:
         serializedVersion: 2
         x: 128
@@ -1474,7 +1491,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_96
+      name: station_wall_black_NS_2
       rect:
         serializedVersion: 2
         x: 160
@@ -1487,7 +1504,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_97
+      name: station_wall_black_NW_1
       rect:
         serializedVersion: 2
         x: 192
@@ -1500,7 +1517,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_98
+      name: station_wall_black_NE_1
       rect:
         serializedVersion: 2
         x: 224
@@ -1513,7 +1530,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_99
+      name: station_wall_black_SW_1
       rect:
         serializedVersion: 2
         x: 256
@@ -1526,7 +1543,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_100
+      name: station_wall_black_ES_1
       rect:
         serializedVersion: 2
         x: 288
@@ -1539,7 +1556,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_101
+      name: station_wall_black_ESW_1
       rect:
         serializedVersion: 2
         x: 320
@@ -1552,7 +1569,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_102
+      name: station_wall_black_NEW_1
       rect:
         serializedVersion: 2
         x: 352
@@ -1565,7 +1582,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_103
+      name: station_wall_black_NES_1
       rect:
         serializedVersion: 2
         x: 384
@@ -1578,7 +1595,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_104
+      name: station_wall_black_NSW_1
       rect:
         serializedVersion: 2
         x: 0
@@ -1695,7 +1712,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_113
+      name: station_wall_black_S_1
       rect:
         serializedVersion: 2
         x: 288
@@ -1708,7 +1725,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_114
+      name: station_wall_black_N_1
       rect:
         serializedVersion: 2
         x: 320
@@ -1721,7 +1738,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_115
+      name: station_wall_black_E_1
       rect:
         serializedVersion: 2
         x: 352
@@ -1734,7 +1751,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_116
+      name: station_wall_black_W_1
       rect:
         serializedVersion: 2
         x: 384
@@ -1955,7 +1972,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_133
+      name: station_wall_black_NESW_1
       rect:
         serializedVersion: 2
         x: 96
@@ -1968,7 +1985,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: construction_walls_134
+      name: station_wall_black__1
       rect:
         serializedVersion: 2
         x: 128

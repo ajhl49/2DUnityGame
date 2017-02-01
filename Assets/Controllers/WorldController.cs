@@ -12,11 +12,23 @@ namespace Controllers
 
         private Dictionary<Tile, GameObject> tileGameObjectMap;
 
+        private Dictionary<InstalledObject, GameObject> installedObjectMap;
+
+        private Dictionary<string, Sprite> installedObjectSprites;
+
         public World World { get; protected set; }
 
         // Use this for initialization
         void Start ()
         {
+            installedObjectSprites = new Dictionary<string, Sprite>();
+            Sprite[] constructionWallSprites = Resources.LoadAll<Sprite>("Sprites/SS13Assets/icons/turf/construction_walls");
+
+            foreach (var sprite in constructionWallSprites)
+            {
+                installedObjectSprites[sprite.name] = sprite;
+            }
+
             if (Instance != null)
             {
                 Debug.LogError("There should never be two world controllers.");
@@ -26,7 +38,10 @@ namespace Controllers
             // Create a world with Empty tiles
             World = new World();
 
+            World.RegisterInstalledObjectCreated(OnInstalledObjectCreated);
+
             tileGameObjectMap = new Dictionary<Tile, GameObject>();
+            installedObjectMap = new Dictionary<InstalledObject, GameObject>();
 
             // Create a GameObject for each of our tiles, so they show visually.
 
@@ -115,6 +130,82 @@ namespace Controllers
             int y = Mathf.FloorToInt(coord.y);
 
             return World.GetTileAt(x, y);
+        }
+
+        public void OnInstalledObjectCreated(InstalledObject installedObject)
+        {
+            // Create a visual GameObject linked to this data.
+
+            // TODO: Does not consider multi-tile objects nor rotated objects
+
+            var gameObject = new GameObject();
+            
+            installedObjectMap.Add(installedObject, gameObject);
+
+            gameObject.name = installedObject.ObjectType + "_" + installedObject.Tile.X + "_" + installedObject.Tile.Y;
+            gameObject.transform.position = new Vector3(installedObject.Tile.X, installedObject.Tile.Y, 0);
+            gameObject.transform.SetParent(transform, true);
+
+            // Currently assuming it to be a wall sprite
+            gameObject.AddComponent<SpriteRenderer>().sprite = GetSpriteForInstalledObject(installedObject);
+
+            installedObject.RegisterOnChangedCallback(OnInstalledObjectChanged);
+        }
+
+        private Sprite GetSpriteForInstalledObject(InstalledObject installedObject)
+        {
+            if (installedObject.LinksToNeighbor == false)
+            {
+                return installedObjectSprites[installedObject.ObjectType];
+            }
+
+            // Otherwise, the sprite name is more complicated
+
+            string spriteName = installedObject.ObjectType + "_";
+
+            // Check for neighbors North, South, East, West
+            int x = installedObject.Tile.X;
+            int y = installedObject.Tile.Y;
+
+            Tile currentTile;
+            currentTile = World.GetTileAt(x, y + 1);
+            if (currentTile != null && currentTile.InstalledObject != null && currentTile.InstalledObject.ObjectType == installedObject.ObjectType)
+            {
+                spriteName += "N";
+            }
+
+            currentTile = World.GetTileAt(x + 1, y);
+            if (currentTile != null && currentTile.InstalledObject != null && currentTile.InstalledObject.ObjectType == installedObject.ObjectType)
+            {
+                spriteName += "E";
+            }
+
+            currentTile = World.GetTileAt(x, y - 1);
+            if (currentTile != null && currentTile.InstalledObject != null && currentTile.InstalledObject.ObjectType == installedObject.ObjectType)
+            {
+                spriteName += "S";
+            }
+
+            currentTile = World.GetTileAt(x - 1, y);
+            if (currentTile != null && currentTile.InstalledObject != null && currentTile.InstalledObject.ObjectType == installedObject.ObjectType)
+            {
+                spriteName += "W";
+            }
+
+            spriteName += "_1";
+
+            if (installedObjectSprites.ContainsKey(spriteName) == false)
+            {
+                Debug.LogError("GetSpriteForInstalledObject -- No sprites with name: " + spriteName);
+                return null;
+            }
+
+            return installedObjectSprites[spriteName];
+        }
+
+        private void OnInstalledObjectChanged(InstalledObject installedObject)
+        {
+            Debug.LogError("OnInstalledObjectChanged -- NOT IMPLEMENTED");
         }
     }
 }

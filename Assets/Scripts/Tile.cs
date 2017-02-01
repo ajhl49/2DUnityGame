@@ -13,7 +13,8 @@ public class Tile {
     // Reference to any object that isn't nailed down and can be picked up (wrench, gun, etc.)
     private LooseObject looseObject;
     // Single object that is installed on the tile, like a door, bookshelf, etc.
-    private InstalledObject installedObject;
+
+    public InstalledObject InstalledObject { get; protected set; }
 
     private World _world;
     public int X { get; protected set; }
@@ -53,17 +54,17 @@ public class Tile {
         if (objectInstance == null)
         {
             // We are uninstalling the current installed object
-            installedObject = null;
+            InstalledObject = null;
             return true;
         }
 
-        if (installedObject != null)
+        if (InstalledObject != null)
         {
             Debug.LogError("Trying to assign an installed object to a tile that already has one!");
             return false;
         }
 
-        installedObject = objectInstance;
+        InstalledObject = objectInstance;
         return true;
     }
 }
