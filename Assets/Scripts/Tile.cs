@@ -66,4 +66,22 @@ public class Tile {
         installedObject = objectInstance;
         return true;
     }
+    //if two tiles are adjacent
+    public bool isNeighboor(Tile tile, bool DiagOK = false)
+    {
+        if (this.X == tile.X && (this.Y == tile.Y + 1 || this.Y == tile.Y - 1))
+            return true;
+        if (this.Y == tile.Y && (this.X == tile.X + 1 || this.X == tile.X - 1))
+            return true;
+        if (DiagOK)
+        {
+            if (this.X == tile.X+1 && (this.Y == tile.Y + 1 || this.Y == tile.Y - 1))
+                return true;
+            if (this.X == tile.X-1 && (this.Y == tile.Y + 1 || this.Y == tile.Y - 1))
+                return true;
+        }
+
+        return false;
+
+    }
 }

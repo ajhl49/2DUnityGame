@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEngine;
+using Assets.Scripts;
 using Debug = UnityEngine.Debug;
+using Random = UnityEngine.Random;
 
 public class World
 {
     private Tile[,] tiles;
+    private List<ghostAI> ghosts;
 
     public int Width { get; private set; }
 
     public int Height { get; private set; }
 
     private Dictionary<string, InstalledObject> installedObjectPrototypes;
+    private Action<ghostAI> cbGhostCreated;
 
     public World(int width = 100, int height = 100)
     {
@@ -31,6 +35,16 @@ public class World
         Debug.Log("World created with " + (width*height) + " tiles.");
 
         CreateInstalledObjectPrototypes();
+        ghosts = new List<ghostAI>();
+        
+    }
+
+    public void createGhost(Tile t)
+    {
+        ghostAI a = new ghostAI(t);
+        if (cbGhostCreated != null)
+            cbGhostCreated(a);
+        
     }
 
     private void CreateInstalledObjectPrototypes()
@@ -76,5 +90,14 @@ public class World
             return null;
         }
         return tiles[x, y];
+    }
+
+    public void RegisterGhostCreated(Action<ghostAI> callBackFunc)
+    {
+        cbGhostCreated += callBackFunc;
+    }
+    public void UnregisterGhostCreated(Action<ghostAI> callBackFunc)
+    {
+        cbGhostCreated -= callBackFunc;
     }
 }
