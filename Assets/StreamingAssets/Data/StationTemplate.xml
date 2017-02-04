@@ -86,5 +86,32 @@
     </Room>
     
     <Room name="Courtyard" width="10" height="12" anchorX="50" anchorY="38">
+        <Furniture objectType="station_wall_black" x="0" y="0" />
+        <Furniture objectType="station_wall_black" x="0" y="1" />
+        <Furniture objectType="station_wall_black" x="0" y="2" />
+        <Furniture objectType="station_wall_black" x="0" y="3" />
+        <Furniture objectType="station_wall_black" x="0" y="4" />
+        <Furniture objectType="station_wall_black" x="0" y="5" />
+        <Furniture objectType="station_wall_black" x="0" y="6" />
+        <Furniture objectType="station_wall_black" x="0" y="7" />
+        <Furniture objectType="station_wall_black" x="0" y="8" />
+        <Furniture objectType="station_wall_black" x="0" y="9" />
+        <Furniture objectType="station_wall_black" x="0" y="10" />
+        <Furniture objectType="station_wall_black" x="0" y="11" />
+        
+        <Furniture objectType="station_wall_black" x="1" y="0" />
+        <Furniture objectType="station_wall_black" x="2" y="0" />
+        <Furniture objectType="station_wall_black" x="3" y="0" />
+        <Furniture objectType="station_wall_black" x="4" y="0" />
+        <Furniture objectType="station_wall_black" x="5" y="0" />
+        <Furniture objectType="station_wall_black" x="6" y="0" />
+        <Furniture objectType="station_wall_black" x="7" y="0" />
+        <Furniture objectType="station_wall_black" x="8" y="0" />
+        <Furniture objectType="station_wall_black" x="9" y="0" />
+        
+        <Furniture objectType="station_wall_black" x="8" y="11" />
+        <Furniture objectType="station_wall_black" x="9" y="11" />
+        <Furniture objectType="station_wall_black" x="9" y="10" />
+        <Furniture objectType="station_wall_black" x="9" y="9" />
     </Room>
 </Rooms>

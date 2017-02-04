@@ -31,11 +31,11 @@ public class Furniture
 
     public bool LinksToNeighbor { get; protected set; }
 
-    private Func<Tile, bool> funcPositionValidation;
+    private Func<Tile, bool> _funcPositionValidation;
 
     public Furniture()
     {
-        funcPositionValidation = IsValidPosition;
+        _funcPositionValidation = IsValidPosition;
         _height = 1;
         _width = 1;
     }
@@ -49,8 +49,8 @@ public class Furniture
         _height = other._height;
         LinksToNeighbor = other.LinksToNeighbor;
 
-        if (other.funcPositionValidation != null)
-            funcPositionValidation = (Func<Tile, bool>) other.funcPositionValidation.Clone();
+        if (other._funcPositionValidation != null)
+            _funcPositionValidation = (Func<Tile, bool>) other._funcPositionValidation.Clone();
     }
 
     public virtual Furniture Clone()
@@ -60,7 +60,7 @@ public class Furniture
 
     public static Furniture PlaceInstance(Furniture prototype, Tile tile)
     {
-        if (prototype.funcPositionValidation(tile) == false)
+        if (!prototype._funcPositionValidation(tile))
         {
             Debug.LogError("PlaceInstance -- Position Validity Function returned FALSE.");
             return null;
@@ -84,8 +84,7 @@ public class Furniture
             int x = tile.X;
             int y = tile.Y;
 
-            Tile currentTile;
-            currentTile = World.WorldInstance.GetTileAt(x, y + 1);
+            var currentTile = World.WorldInstance.GetTileAt(x, y + 1);
             if (currentTile != null && currentTile.Furniture != null && currentTile.Furniture.ObjectType == obj.ObjectType)
             {
                 currentTile.Furniture.FurnitureChanged(currentTile.Furniture);
@@ -134,7 +133,7 @@ public class Furniture
     {
         if (IsValidPosition(t) == false)
             return false;
-        // Make sure we have a pair of E/W or N/S walls
+
         return true;
     }
 

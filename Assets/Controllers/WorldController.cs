@@ -25,8 +25,6 @@ namespace Controllers
         private void CreateEmptyWorld()
         {
             World = new World();
-
-            Camera.main.transform.position = new Vector3(World.Width / 2, World.Height / 2, Camera.main.transform.position.z);
         }
 
         private void Update()

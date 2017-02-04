@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using UnityEngine;
@@ -9,18 +10,13 @@ namespace Controllers
     {
         private Dictionary<Furniture, GameObject> _furnitureGameObjectMap;
 
-        private World World
-        {
-            get { return WorldController.Instance.World; }
-        }
-
         private void Start()
         {
             _furnitureGameObjectMap = new Dictionary<Furniture, GameObject>();
         
-            World.FurnitureCreated += OnFurnitureCreated;
+            World.WorldInstance.FurnitureCreated += OnFurnitureCreated;
 
-            foreach (var furn in World.Furnitures)
+            foreach (var furn in World.WorldInstance.Furnitures)
             {
                 OnFurnitureCreated(furn);
             }
@@ -41,6 +37,10 @@ namespace Controllers
             var spriteRenderer = furnitureGameObject.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = GetSpriteForFurniture(furn);
             spriteRenderer.sortingLayerName = "Furniture";
+
+            var boxCollider = furnitureGameObject.AddComponent<BoxCollider2D>();
+            boxCollider.enabled = (Math.Abs(furn.MovementCost) < float.Epsilon);
+            boxCollider.size = new Vector2(1.0f, 1.0f);
 
             furn.FurnitureChanged += OnFurnitureChanged;
         }
@@ -72,22 +72,22 @@ namespace Controllers
             int x = furn.Tile.X;
             int y = furn.Tile.Y;
 
-            var t = World.GetTileAt(x, y + 1);
+            var t = World.WorldInstance.GetTileAt(x, y + 1);
             if (t != null && t.Furniture != null && t.Furniture.ObjectType == furn.ObjectType)
             {
                 spriteName += "N";
             }
-            t = World.GetTileAt(x + 1, y);
+            t = World.WorldInstance.GetTileAt(x + 1, y);
             if (t != null && t.Furniture != null && t.Furniture.ObjectType == furn.ObjectType)
             {
                 spriteName += "E";
             }
-            t = World.GetTileAt(x, y - 1);
+            t = World.WorldInstance.GetTileAt(x, y - 1);
             if (t != null && t.Furniture != null && t.Furniture.ObjectType == furn.ObjectType)
             {
                 spriteName += "S";
             }
-            t = World.GetTileAt(x - 1, y);
+            t = World.WorldInstance.GetTileAt(x - 1, y);
             if (t != null && t.Furniture != null && t.Furniture.ObjectType == furn.ObjectType)
             {
                 spriteName += "W";

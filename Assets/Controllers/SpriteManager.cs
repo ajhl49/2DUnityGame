@@ -94,6 +94,8 @@ namespace Controllers
                 return;
             }
             string spriteName = reader.GetAttribute("name");
+            // Null value is "heuristically impossible", according to ReSharper
+            // ReSharper disable AssignNullToNotNullAttribute
             int x = int.Parse(reader.GetAttribute("x"));
             int y = int.Parse(reader.GetAttribute("y"));
             int w = int.Parse(reader.GetAttribute("w"));
@@ -118,12 +120,7 @@ namespace Controllers
         {
             spriteName = categoryName + "/" + spriteName;
 
-            if (_sprites.ContainsKey(spriteName) == false)
-            {
-                return null;
-            }
-
-            return _sprites[spriteName];
+            return _sprites.ContainsKey(spriteName) == false ? null : _sprites[spriteName];
         }
     }
 }

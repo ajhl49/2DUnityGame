@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class World
 {
@@ -26,8 +25,6 @@ public class World
     {
         
         SetupWorld(width, height);
-
-        Debug.Log("World created with " + (width*height) + " tiles.");
 
         CreateFurniturePrototypes();
     }
@@ -95,28 +92,6 @@ public class World
         Debug.Log("Furniture prototypes read: " + furnCount);
     }
 
-    /// <summary>
-    /// Function for testing out the system.
-    /// </summary>
-    public void RandomizeTiles()
-    {
-        Debug.Log("RandomizeTiles");
-        for (int x = 0; x < Width; x++)
-        {
-            for (int y = 0; y < Height; y++)
-            {
-                if (Random.Range(0, 2) == 0)
-                {
-                    _tiles[x, y].Type = TileType.Empty;
-                }
-                else
-                {
-                    _tiles[x, y].Type = TileType.Floor;
-                }
-            }
-        }
-    }
-
     public Tile GetTileAt(int x, int y)
     {
         if (x > Width || x < 0 || y > Height || y < 0)
@@ -129,9 +104,8 @@ public class World
 
     public Furniture PlaceFurniture(string objectType, Tile tile)
     {
-        // TODO: This function assumes 1x1 tiles -- change this later
 
-        if (_furnitureObjectPrototypes.ContainsKey(objectType) == false)
+        if (!_furnitureObjectPrototypes.ContainsKey(objectType))
         {
             Debug.LogError("furnitureObjectPrototypes doesn't contain a proto for key: " + objectType);
             return null;
@@ -163,12 +137,8 @@ public class World
 
     public Furniture GetFurniturePrototype(string objectType)
     {
-        if (_furnitureObjectPrototypes.ContainsKey(objectType) == false)
-        {
-            Debug.LogError("No furniture with type: " + objectType);
-            return null;
-        }
-
-        return _furnitureObjectPrototypes[objectType];
+        if (_furnitureObjectPrototypes.ContainsKey(objectType)) return _furnitureObjectPrototypes[objectType];
+        Debug.LogError("No furniture with type: " + objectType);
+        return null;
     }
 }
