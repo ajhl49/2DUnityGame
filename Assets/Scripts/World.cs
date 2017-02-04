@@ -9,6 +9,7 @@ public class World
 {
     private Tile[,] tiles;
     private List<ghostAI> ghosts;
+    public Path_TileGraph tileGraph;
 
     public int Width { get; private set; }
 
