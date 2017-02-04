@@ -33,11 +33,12 @@ public class ghostSpriteContr : MonoBehaviour
     private void LoadSprites()
     {
         ghostSprites = new Dictionary<string, Sprite>();
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Assets/Sprites/SS13Assets/Icons/mob/");
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/SS13Assets/icons/mob");
         //Debug.Log("LOADED RESOURCE:");
+        Debug.Log(("Load Sprites"));
         foreach (Sprite s in sprites)
         {
-            //Debug.Log(s);
+            Debug.Log(s);
             ghostSprites[s.name] = s;
         }
 
@@ -55,7 +56,8 @@ public class ghostSpriteContr : MonoBehaviour
         char_go.transform.SetParent(this.transform, true);
 
         SpriteRenderer sr = char_go.AddComponent<SpriteRenderer>();
-        sr.sprite = ghostSprites["ghost_drone_0"];
+        Debug.Log("on ghost created");
+        sr.sprite = ghostSprites["ghost_drone_38"];
         sr.sortingLayerName = "Characters";
 
         //ghost.RegisterOnchangedCallback(onGhostChanged);
