@@ -19,20 +19,22 @@ public class ghostSpriteContr : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+        Debug.Log("ghost start!!!");
 	    LoadSprites();
 
         ghostGameObjectMap = new Dictionary<ghostAI, GameObject>();
 
 	    world.RegisterGhostCreated(onGhostCreated);
 
-        world.createGhost(world.GetTileAt(world.Width/2, world.Height/2));
+        world.CreateGhost(world.GetTileAt(world.Width/2, world.Height/2));
 
 	}
 
     private void LoadSprites()
     {
         ghostSprites = new Dictionary<string, Sprite>();
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Assets/Sprites/SS13Assets/Icons/mob");
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Assets/Sprites/SS13Assets/Icons/mob/");
+        //Debug.Log("LOADED RESOURCE:");
         foreach (Sprite s in sprites)
         {
             //Debug.Log(s);
@@ -43,11 +45,18 @@ public class ghostSpriteContr : MonoBehaviour
 
     private void onGhostCreated(ghostAI ghost)
     {
-        GameObject ghost_go = new GameObject();
-        ghost_go.name = "ghost";
-        ghost_go.transform.position = new Vector3(ghost.currTile.X,ghost.currTile.Y,0);
-        ghost_go.transform.SetParent(this.transform, true);
-        ghost_go.AddComponent<SpriteRenderer>().sprite = ghostSprites["ghost_drone_46"];
+        GameObject char_go = new GameObject();
+
+        // Add our tile/GO pair to the dictionary.
+        ghostGameObjectMap.Add(ghost, char_go);
+
+        char_go.name = "Character";
+        char_go.transform.position = new Vector3(ghost.currTile.X, ghost.currTile.Y, 0);
+        char_go.transform.SetParent(this.transform, true);
+
+        SpriteRenderer sr = char_go.AddComponent<SpriteRenderer>();
+        sr.sprite = ghostSprites["ghost_drone_0"];
+        sr.sortingLayerName = "Characters";
 
         //ghost.RegisterOnchangedCallback(onGhostChanged);
 

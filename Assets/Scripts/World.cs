@@ -17,7 +17,7 @@ public class World
     private Dictionary<string, InstalledObject> installedObjectPrototypes;
     private Action<ghostAI> cbGhostCreated;
 
-    public World(int width = 100, int height = 100)
+    public World(int width = 10, int height = 10)
     {
         Width = width;
         Height = height;
@@ -39,7 +39,7 @@ public class World
         
     }
 
-    public void createGhost(Tile t)
+    public void CreateGhost(Tile t)
     {
         ghostAI a = new ghostAI(t);
         if (cbGhostCreated != null)
