@@ -31,6 +31,7 @@ public class Player : MovingObject
     {
         get
         {
+            
             return (int)Mathf.Floor(transform.position.y);
         }
     }

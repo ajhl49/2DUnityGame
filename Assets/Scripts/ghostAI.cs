@@ -13,7 +13,7 @@ namespace Assets.Scripts
 
         public float Y
         {
-            get { return Mathf.Lerp(currTile.X, destTile.X, MovePercentage); }
+            get { return Mathf.Lerp(currTile.Y, destTile.Y, MovePercentage); }
         }
 
         private float MovePercentage; // 0-1 how far between tiles
@@ -58,10 +58,10 @@ namespace Assets.Scripts
 
         public void SetDestination(Tile tile)
         {
-            if (currTile.IsNeighbour(tile, true) == false)
-            {
-                Debug.Log("Character::SetDestination -- Our destination tile isn't actually our neighbour.");
-            }
+            //if (currTile.IsNeighbour(tile, true) == false)
+            //{
+                //Debug.Log("Character::SetDestination -- Our destination tile isn't actually our neighbour.");
+            //}
 
             destTile = tile;
         }
