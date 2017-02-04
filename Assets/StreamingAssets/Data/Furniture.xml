@@ -7,6 +7,54 @@
         <Height>1</Height>
         <LinksToNeighbors>true</LinksToNeighbors>
     </Furniture>
+    
+    <Furniture objectType="station_door_medbay">
+        <Name>Basic Door</Name>
+        <MovementCost>1</MovementCost>
+        <Width>1</Width>
+        <Height>1</Height>
+        <LinksToNeighbors>false</LinksToNeighbors>
+    </Furniture>
+    
+    <Furniture objectType="medbay_blood_pump">
+        <Name>Basic Blood Pump</Name>
+        <MovementCost>1</MovementCost>
+        <Width>1</Width>
+        <Height>1</Height>
+        <LinksToNeighbors>false</LinksToNeighbors>
+    </Furniture>
+    
+    <Furniture objectType="medbay_table">
+        <Name>Medbay Surgery Table</Name>
+        <MovementCost>1</MovementCost>
+        <Width>1</Width>
+        <Height>1</Height>
+        <LinksToNeighbors>false</LinksToNeighbors>
+    </Furniture>
+    
+    <Furniture objectType="cloning_pod_empty">
+        <Name>Empty Cloning Pod</Name>
+        <MovementCost>1</MovementCost>
+        <Width>1</Width>
+        <Height>1</Height>
+        <LinksToNeighbors>false</LinksToNeighbors>
+    </Furniture>
+    
+    <Furniture objectType="cloning_pod_occupied">
+        <Name>Occupied Cloning Pod</Name>
+        <MovementCost>1</MovementCost>
+        <Width>1</Width>
+        <Height>1</Height>
+        <LinksToNeighbors>false</LinksToNeighbors>
+    </Furniture>
+    
+    <Furniture objectType="blue_sofa">
+        <Name>A Comfortable Sofa</Name>
+        <MovementCost>1</MovementCost>
+        <Width>1</Width>
+        <Height>1</Height>
+        <LinksToNeighbors>true</LinksToNeighbors>
+    </Furniture>
 </Furnitures>
 
 

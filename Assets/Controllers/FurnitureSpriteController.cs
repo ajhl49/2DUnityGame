@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 using UnityEngine;
 
 namespace Controllers
@@ -22,6 +24,8 @@ namespace Controllers
             {
                 OnFurnitureCreated(furn);
             }
+
+            PlaceRooms();
         }
 
         public void OnFurnitureCreated(Furniture furn)
@@ -60,7 +64,6 @@ namespace Controllers
 
             if (furn.LinksToNeighbor == false)
             {
-                Debug.Log(spriteName);
                 return SpriteManager.SpriteManagerInstance.GetSprite("Furniture", spriteName);
             }
 
@@ -92,6 +95,64 @@ namespace Controllers
             spriteName += "_1";
 
             return SpriteManager.SpriteManagerInstance.GetSprite("Furniture", spriteName);
+        }
+
+        private void PlaceRooms()
+        {
+            string filePath = Path.Combine(Application.streamingAssetsPath, "Data");
+            filePath = Path.Combine(filePath, "StationTemplate.xml");
+            string stationTemplateXmlText = File.ReadAllText(filePath);
+
+            var reader = new XmlTextReader(new StringReader(stationTemplateXmlText));
+            
+            if (reader.ReadToDescendant("Rooms"))
+            {
+                if (reader.ReadToDescendant("Room"))
+                {
+                    do { 
+                        // Since it's "heuristically impossible" for the reader
+                        // to be null, it's better to disable this particular warning
+                        // ReSharper disable AssignNullToNotNullAttribute
+                        int width = int.Parse(reader.GetAttribute("width"));
+                        int height = int.Parse(reader.GetAttribute("height"));
+                        int anchorX = int.Parse(reader.GetAttribute("anchorX"));
+                        int anchorY = int.Parse(reader.GetAttribute("anchorY"));
+                        for (int x = anchorX; x < width + anchorX; x++)
+                        {
+                            for (int y = anchorY; y < height + anchorY; y++)
+                            {
+                                World.WorldInstance.GetTileAt(x, y).Type = TileType.Floor;
+                            }
+                        }
+
+                        var roomReader = reader.ReadSubtree();
+                        
+                        if (roomReader.ReadToDescendant("Furniture"))
+                        {
+                            do
+                            {
+                                string objectType = roomReader.GetAttribute("objectType");
+                                int x = int.Parse(roomReader.GetAttribute("x")) + anchorX;
+                                int y = int.Parse(roomReader.GetAttribute("y")) + anchorY;
+
+                                var roomTile = World.WorldInstance.GetTileAt(x, y);
+                                roomTile.Type = TileType.Floor;
+
+                                World.WorldInstance.PlaceFurniture(objectType, roomTile);
+                            } while (roomReader.ReadToNextSibling("Furniture"));
+                        }
+
+                    } while (reader.ReadToNextSibling("Room"));
+                }
+                else
+                {
+                    Debug.LogError("The room definitions file doesn't have any 'Room' elements.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Did not find a 'Rooms' element in the template definition file.");
+            }
         }
 
         public Sprite GetSpriteForFurniture(string objectType)

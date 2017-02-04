@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sprites>
+	<Sprite name="medbay_blood_pump"     x="0"  y="352" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="medbay_table"     x="416"  y="512" w="32" h="32" pixelsPerUnit="32" />
+</Sprites>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sprites>
+	<Sprite name="station_door_medbay"     x="0"  y="160" w="32" h="32" pixelsPerUnit="32" />
+</Sprites>

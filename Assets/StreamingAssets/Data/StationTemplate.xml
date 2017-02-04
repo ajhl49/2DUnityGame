@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Rooms>
+    <Room name="Medbay" width="9" height="7" anchorX="50" anchorY="50">
+        <Furniture objectType="station_wall_black" x="0" y="0" />
+        <Furniture objectType="station_wall_black" x="1" y="0" />
+        <Furniture objectType="station_wall_black" x="2" y="0" />
+        <Furniture objectType="station_wall_black" x="3" y="0" />
+        <Furniture objectType="station_door_medbay" x="4" y="0" />
+        <Furniture objectType="station_wall_black" x="5" y="0" />
+        <Furniture objectType="station_wall_black" x="6" y="0" />
+        <Furniture objectType="station_wall_black" x="7" y="0" />
+        <Furniture objectType="station_wall_black" x="8" y="0" />
+        
+        <Furniture objectType="station_wall_black" x="0" y="1" />
+        <Furniture objectType="station_wall_black" x="8" y="1" />
+        
+        <Furniture objectType="station_wall_black" x="0" y="2" />
+        <Furniture objectType="station_wall_black" x="8" y="2" />
+        
+        <Furniture objectType="station_wall_black" x="0" y="3" />
+        <Furniture objectType="station_wall_black" x="8" y="3" />
+        
+        <Furniture objectType="station_wall_black" x="0" y="4" />
+        <Furniture objectType="station_wall_black" x="8" y="4" />
+        
+        <Furniture objectType="station_wall_black" x="0" y="5" />
+        <Furniture objectType="station_wall_black" x="8" y="5" />
+        
+        <Furniture objectType="station_wall_black" x="0" y="6" />
+        <Furniture objectType="station_wall_black" x="1" y="6" />
+        <Furniture objectType="station_wall_black" x="2" y="6" />
+        <Furniture objectType="station_wall_black" x="3" y="6" />
+        <Furniture objectType="station_wall_black" x="4" y="6" />
+        <Furniture objectType="station_wall_black" x="5" y="6" />
+        <Furniture objectType="station_wall_black" x="6" y="6" />
+        <Furniture objectType="station_wall_black" x="7" y="6" />
+        <Furniture objectType="station_wall_black" x="8" y="6" />
+        
+        <Furniture objectType="medbay_blood_pump" x="7" y="5" />
+        <Furniture objectType="medbay_blood_pump" x="7" y="2" />
+        <Furniture objectType="medbay_table" x="7" y="4" />
+        <Furniture objectType="medbay_table" x="7" y="1" />
+        
+        <Furniture objectType="cloning_pod_empty" x="1" y="5" />
+        <Furniture objectType="cloning_pod_empty" x="2" y="5" />
+        <Furniture objectType="cloning_pod_occupied" x="3" y="5" />
+    </Room>
+    
+    <Room name="Lounge" width="6" height="10" anchorX="60" anchorY="38">
+        <Furniture objectType="station_wall_black" x="0" y="0" />
+        <Furniture objectType="station_wall_black" x="0" y="1" />
+        <Furniture objectType="station_wall_black" x="0" y="2" />
+        <Furniture objectType="station_wall_black" x="0" y="3" />
+        
+        <Furniture objectType="station_wall_black" x="0" y="6" />
+        <Furniture objectType="station_wall_black" x="0" y="7" />
+        <Furniture objectType="station_wall_black" x="0" y="8" />
+        <Furniture objectType="station_wall_black" x="0" y="9" />
+        
+        <Furniture objectType="station_wall_black" x="5" y="0" />
+        <Furniture objectType="station_wall_black" x="5" y="1" />
+        <Furniture objectType="station_wall_black" x="5" y="2" />
+        <Furniture objectType="station_wall_black" x="5" y="3" />
+        <Furniture objectType="station_wall_black" x="5" y="4" />
+        <Furniture objectType="station_wall_black" x="5" y="5" />
+        <Furniture objectType="station_wall_black" x="5" y="6" />
+        <Furniture objectType="station_wall_black" x="5" y="7" />
+        <Furniture objectType="station_wall_black" x="5" y="8" />
+        <Furniture objectType="station_wall_black" x="5" y="9" />
+        
+        <Furniture objectType="station_wall_black" x="1" y="9" />
+        <Furniture objectType="station_wall_black" x="2" y="9" />
+        <Furniture objectType="station_wall_black" x="3" y="9" />
+        <Furniture objectType="station_wall_black" x="4" y="9" />
+        
+        <Furniture objectType="station_wall_black" x="1" y="0" />
+        <Furniture objectType="station_wall_black" x="2" y="0" />
+        <Furniture objectType="station_wall_black" x="3" y="0" />
+        <Furniture objectType="station_wall_black" x="4" y="0" />
+        
+        <Furniture objectType="blue_sofa" x="1" y="1" />
+        <Furniture objectType="blue_sofa" x="1" y="2" />
+        
+        <Furniture objectType="blue_sofa" x="1" y="7" />
+        <Furniture objectType="blue_sofa" x="1" y="8" />
+    </Room>
+    
+    <Room name="Courtyard" width="10" height="12" anchorX="50" anchorY="38">
+    </Room>
+</Rooms>

@@ -48,7 +48,7 @@ Jesse McCarthy (opengameart.org)
 Licensed under Creative Commons: By Attribution 3.0
 http://creativecommons.org/licenses/by/3.0/
 
-Player Sprite Assets:
+Other Tile Assets:
 Taken from Goonstation-2016 Github Repo (https://github.com/goonstation/goonstation-2016)
 Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0
 http://creativecommons.org/licenses/by-nc-sa/3.0/us/

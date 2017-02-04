@@ -9,7 +9,7 @@ public class World
 {
     public static World WorldInstance { get; protected set; }
 
-    private Tile[,] tiles;
+    private Tile[,] _tiles;
 
     public int Width { get; private set; }
 
@@ -20,7 +20,7 @@ public class World
 
     public List<Furniture> Furnitures;
 
-    private Dictionary<string, Furniture> furnitureObjectPrototypes;
+    private Dictionary<string, Furniture> _furnitureObjectPrototypes;
 
     public World(int width = 100, int height = 100)
     {
@@ -39,14 +39,14 @@ public class World
         Width = width;
         Height = height;
 
-        tiles = new Tile[width, height];
+        _tiles = new Tile[width, height];
 
         for (int x = 0; x < Width; x++)
         {
             for (int y = 0; y < Height; y++)
             {
-                tiles[x, y] = new Tile(x, y);
-                tiles[x, y].TileTypeChanged += OnTileChanged;
+                _tiles[x, y] = new Tile(x, y);
+                _tiles[x, y].TileTypeChanged += OnTileChanged;
             }
         }
 
@@ -55,15 +55,17 @@ public class World
         Furnitures = new List<Furniture>();
     }
 
+    
+
     private void CreateFurniturePrototypes()
     {
-        furnitureObjectPrototypes = new Dictionary<string, Furniture>();
+        _furnitureObjectPrototypes = new Dictionary<string, Furniture>();
 
         string filePath = Path.Combine(Application.streamingAssetsPath, "Data");
         filePath = Path.Combine(filePath, "Furniture.xml");
         string furnitureXmlText = File.ReadAllText(filePath);
 
-        XmlTextReader reader = new XmlTextReader(new StringReader(furnitureXmlText));
+        var reader = new XmlTextReader(new StringReader(furnitureXmlText));
 
         int furnCount = 0;
         if (reader.ReadToDescendant("Furnitures"))
@@ -74,10 +76,10 @@ public class World
                 {
                     furnCount++;
 
-                    Furniture furn = new Furniture();
+                    var furn = new Furniture();
                     furn.ReadXmlPrototype(reader);
 
-                    furnitureObjectPrototypes[furn.ObjectType] = furn;
+                    _furnitureObjectPrototypes[furn.ObjectType] = furn;
                 } while (reader.ReadToNextSibling("Furniture"));
             }
             else
@@ -87,7 +89,7 @@ public class World
         }
         else
         {
-            Debug.LogError("Did not find a 'Furniture' element in the prototype definition file.");
+            Debug.LogError("Did not find a 'Furnitures' element in the prototype definition file.");
         }
 
         Debug.Log("Furniture prototypes read: " + furnCount);
@@ -105,11 +107,11 @@ public class World
             {
                 if (Random.Range(0, 2) == 0)
                 {
-                    tiles[x, y].Type = TileType.Empty;
+                    _tiles[x, y].Type = TileType.Empty;
                 }
                 else
                 {
-                    tiles[x, y].Type = TileType.Floor;
+                    _tiles[x, y].Type = TileType.Floor;
                 }
             }
         }
@@ -122,20 +124,20 @@ public class World
             Debug.LogError("Tile (" + x  + "," + y + ") is out of range");
             return null;
         }
-        return tiles[x, y];
+        return _tiles[x, y];
     }
 
     public Furniture PlaceFurniture(string objectType, Tile tile)
     {
         // TODO: This function assumes 1x1 tiles -- change this later
 
-        if (furnitureObjectPrototypes.ContainsKey(objectType) == false)
+        if (_furnitureObjectPrototypes.ContainsKey(objectType) == false)
         {
             Debug.LogError("furnitureObjectPrototypes doesn't contain a proto for key: " + objectType);
             return null;
         }
 
-        var furn = Furniture.PlaceInstance(furnitureObjectPrototypes[objectType], tile);
+        var furn = Furniture.PlaceInstance(_furnitureObjectPrototypes[objectType], tile);
 
         if (furn == null)
         {
@@ -161,12 +163,12 @@ public class World
 
     public Furniture GetFurniturePrototype(string objectType)
     {
-        if (furnitureObjectPrototypes.ContainsKey(objectType) == false)
+        if (_furnitureObjectPrototypes.ContainsKey(objectType) == false)
         {
             Debug.LogError("No furniture with type: " + objectType);
             return null;
         }
 
-        return furnitureObjectPrototypes[objectType];
+        return _furnitureObjectPrototypes[objectType];
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sprites>
+	<Sprite name="blue_sofa_EW_1"     x="416"  y="256" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="blue_sofa_EW_2"     x="448"  y="256" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="blue_sofa_W_1"     x="0"  y="224" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="blue_sofa_E_1"     x="32"  y="224" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="blue_sofa_S_1"     x="192"  y="224" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="blue_sofa_N_1"     x="256"  y="224" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="blue_sofa__1"     x="352"  y="320" w="32" h="32" pixelsPerUnit="32" />
+</Sprites>

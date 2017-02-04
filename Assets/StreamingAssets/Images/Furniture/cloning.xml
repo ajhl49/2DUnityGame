@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sprites>
+	<Sprite name="cloning_pod_empty"     x="0"  y="192" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="cloning_pod_occupied"     x="192"  y="192" w="32" h="32" pixelsPerUnit="32" />
+</Sprites>
