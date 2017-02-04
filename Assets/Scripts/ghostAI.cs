@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 namespace Assets.Scripts
@@ -18,8 +19,10 @@ namespace Assets.Scripts
         private float MovePercentage; // 0-1 how far between tiles
         private float speed = 2f; //tiles/sec
 
+        Action<ghostAI> cbGhostChanged;
+
         public Tile currTile { get; protected set; }
-        public Tile destTile; // when stopped destTile = currtile
+        public Tile destTile { get; protected set; } // when stopped destTile = currtile
 
         public ghostAI(Tile tile)
         {
@@ -29,6 +32,7 @@ namespace Assets.Scripts
 
         public void Update(float deltaTime)
         {
+            Debug.Log("Ghost update");
             if (currTile == destTile)
                 return;
 
@@ -36,24 +40,38 @@ namespace Assets.Scripts
             float distThisFrame = speed * deltaTime;
             float percThisFrame = distThisFrame / distToTravel;
             MovePercentage += percThisFrame;
+           
 
             if (MovePercentage >= 1)
             {
                 currTile = destTile;
                 MovePercentage = 0;
             }
+            if (cbGhostChanged != null)
+            {
+                cbGhostChanged(this);
+            }
 
         }
 
-        public void setDestination(Tile tile)
+        public void SetDestination(Tile tile)
         {
-            if (!currTile.isNeighboor(tile, true))
+            if (currTile.IsNeighbour(tile, true) == false)
             {
-                Debug.Log("tiles not adjcent");
+                Debug.Log("Character::SetDestination -- Our destination tile isn't actually our neighbour.");
             }
+
             destTile = tile;
         }
-        
+        public void RegisterOnChangedCallback(Action<ghostAI> cb)
+        {
+            cbGhostChanged += cb;
+        }
+
+        public void UnregisterOnChangedCallback(Action<ghostAI> cb)
+        {
+            cbGhostChanged -= cb;
+        }
 
     }
 }

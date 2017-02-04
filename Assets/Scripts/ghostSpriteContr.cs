@@ -19,14 +19,15 @@ public class ghostSpriteContr : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-        Debug.Log("ghost start!!!");
+       
 	    LoadSprites();
 
         ghostGameObjectMap = new Dictionary<ghostAI, GameObject>();
 
 	    world.RegisterGhostCreated(onGhostCreated);
 
-        world.CreateGhost(world.GetTileAt(world.Width/2, world.Height/2));
+        ghostAI g = world.CreateGhost(world.GetTileAt(world.Width/2, world.Height/2));
+        g.SetDestination(world.GetTileAt((world.Width/ 2)+2, world.Height / 2));
 
 	}
 
@@ -34,11 +35,9 @@ public class ghostSpriteContr : MonoBehaviour
     {
         ghostSprites = new Dictionary<string, Sprite>();
         Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/SS13Assets/icons/mob");
-        //Debug.Log("LOADED RESOURCE:");
-        Debug.Log(("Load Sprites"));
+        
         foreach (Sprite s in sprites)
         {
-            Debug.Log(s);
             ghostSprites[s.name] = s;
         }
 
@@ -56,11 +55,12 @@ public class ghostSpriteContr : MonoBehaviour
         char_go.transform.SetParent(this.transform, true);
 
         SpriteRenderer sr = char_go.AddComponent<SpriteRenderer>();
-        Debug.Log("on ghost created");
+        
         sr.sprite = ghostSprites["ghost_drone_38"];
         sr.sortingLayerName = "Characters";
 
         //ghost.RegisterOnchangedCallback(onGhostChanged);
+        ghost.RegisterOnChangedCallback(OnGhostChanged);
 
     }
 
@@ -69,4 +69,23 @@ public class ghostSpriteContr : MonoBehaviour
     void Update () {
 		
 	}
+    void OnGhostChanged(ghostAI c)
+    {
+        //Debug.Log("OnFurnitureChanged");
+        // Make sure the furniture's graphics are correct.
+
+        if (ghostGameObjectMap.ContainsKey(c) == false)
+        {
+            Debug.LogError("OnGhostChanged -- trying to change visuals for character not in our map.");
+            return;
+        }
+
+        GameObject char_go = ghostGameObjectMap[c];
+        //Debug.Log(furn_go);
+        //Debug.Log(furn_go.GetComponent<SpriteRenderer>());
+
+        //char_go.GetComponent<SpriteRenderer>().sprite = GetSpriteForFurniture(furn);
+
+        char_go.transform.position = new Vector3(c.X, c.Y, 0);
+    }
 }

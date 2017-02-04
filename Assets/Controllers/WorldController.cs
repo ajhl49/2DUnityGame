@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts;
 using UnityEngine;
 
 namespace Controllers
@@ -58,6 +59,7 @@ namespace Controllers
         // Update is called once per frame
         void Update ()
         {
+            World.update(Time.deltaTime);
         }
 
         private void DestroyAllTileGameObjects()
@@ -116,5 +118,6 @@ namespace Controllers
 
             return World.GetTileAt(x, y);
         }
+        
     }
 }

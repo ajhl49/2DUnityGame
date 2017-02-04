@@ -39,12 +39,24 @@ public class World
         
     }
 
-    public void CreateGhost(Tile t)
+    public void update(float deltaTime)
+    {
+        foreach (ghostAI g in ghosts)
+        {
+            
+            g.Update(deltaTime);
+            
+        }
+    }
+
+    public ghostAI CreateGhost(Tile t)
     {
         ghostAI a = new ghostAI(t);
+        ghosts.Add(a);
         if (cbGhostCreated != null)
             cbGhostCreated(a);
-        
+        return a;
+
     }
 
     private void CreateInstalledObjectPrototypes()

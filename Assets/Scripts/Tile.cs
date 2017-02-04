@@ -67,7 +67,7 @@ public class Tile {
         return true;
     }
     //if two tiles are adjacent
-    public bool isNeighboor(Tile tile, bool DiagOK = false)
+    public bool IsNeighbour(Tile tile, bool DiagOK = false)
     {
         if (this.X == tile.X && (this.Y == tile.Y + 1 || this.Y == tile.Y - 1))
             return true;
