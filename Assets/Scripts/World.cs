@@ -43,8 +43,9 @@ public class World
     {
         foreach (ghostAI g in ghosts)
         {
-            
+            g.SetDestination(GetTileAt(Player.PlayerInstance.X, Player.PlayerInstance.Y));
             g.Update(deltaTime);
+            
             
         }
     }

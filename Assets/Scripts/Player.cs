@@ -5,6 +5,35 @@ public class Player : MovingObject
 
     public float BaseSpeed = 8f;
     public float SprintMult = 2f;
+    public static Player PlayerInstance;
+
+    protected override void Start()
+    {
+        if (PlayerInstance != null)
+        {
+            Debug.LogError("Player instance already created.");
+            return;
+        }
+        Debug.Log("player created");
+        PlayerInstance = this;
+
+        base.Start();
+
+    }
+    public int X
+    {
+        get
+        {
+            return (int) Mathf.Floor(transform.position.x);
+        }
+    }
+    public int Y
+    {
+        get
+        {
+            return (int)Mathf.Floor(transform.position.y);
+        }
+    }
 
     void FixedUpdate()
     {

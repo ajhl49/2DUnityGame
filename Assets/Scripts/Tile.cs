@@ -15,7 +15,7 @@ public class Tile {
     // Single object that is installed on the tile, like a door, bookshelf, etc.
     private InstalledObject installedObject;
 
-    private World _world;
+    public World _world;
     public int X { get; protected set; }
     public int Y { get; protected set; }
 

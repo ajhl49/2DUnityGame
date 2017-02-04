@@ -52,6 +52,8 @@ namespace Assets.Scripts
                 cbGhostChanged(this);
             }
 
+
+
         }
 
         public void SetDestination(Tile tile)
