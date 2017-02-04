@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.Events;
 using UnityEngine.EventSystems;
 
 namespace Controllers
 {
     public class MouseController : MonoBehaviour
     {
-        public GameObject circleCursorPrefab;
+        public GameObject CircleCursorPrefab;
 
-        private bool buildModeIsObjects = false;
-        TileType buildModeTile = TileType.Floor;
-        private string buildModeObjectType;
+        private bool _buildModeIsObjects;
+        private TileType _buildModeTile = TileType.Floor;
+        private string _buildModeObjectType;
 
         private Vector3 _currFramePosition;
         private Vector3 _lastFramePosition;
@@ -20,13 +19,13 @@ namespace Controllers
         private List<GameObject> _dragPreviewGameObjects;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             _dragPreviewGameObjects = new List<GameObject>();
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             _currFramePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _currFramePosition.z = 0;
@@ -47,7 +46,6 @@ namespace Controllers
             if (Input.GetMouseButton(1) || Input.GetMouseButton(2)) // Right or Middle Mouse Button
             {
                 var diff = _lastFramePosition - _currFramePosition;
-                //Debug.Log(diff);
                 Camera.main.transform.Translate(diff);
             }
 
@@ -104,14 +102,12 @@ namespace Controllers
                     for (int y = startY; y <= endY; y++)
                     {
                         var t = WorldController.Instance.World.GetTileAt(x, y);
-                        if (t != null)
-                        {
-                            // Display the building hint on top of this tile position
+                        if (t == null) continue;
+                        // Display the building hint on top of this tile position
 
-                            var go = SimplePool.Spawn(circleCursorPrefab, new Vector3(x, y, 0), Quaternion.identity);
-                            go.transform.SetParent(transform, true);
-                            _dragPreviewGameObjects.Add(go);
-                        }
+                        var go = SimplePool.Spawn(CircleCursorPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                        go.transform.SetParent(transform, true);
+                        _dragPreviewGameObjects.Add(go);
                     }
                 }
             }
@@ -119,7 +115,6 @@ namespace Controllers
             // End Editor Drag
             if (Input.GetMouseButtonUp(0))
             {
-                // TODO: Separate for Base/Room generation code from normal gameplay
                 for (int x = startX; x <= endX; x++)
                 {
                     for (int y = startY; y <= endY; y++)
@@ -128,17 +123,14 @@ namespace Controllers
                         
                         if (t != null)
                         {
-                            if (buildModeIsObjects)
+                            if (_buildModeIsObjects)
                             {
-                                // Create the Furniture and assign it to the tile
-                                // TODO: We are currently assuming walls only
-
-                                WorldController.Instance.World.PlaceInstalledObject(buildModeObjectType, t);
+                                WorldController.Instance.World.PlaceFurniture(_buildModeObjectType, t);
                             }
                             else
                             {
                                 // We are in tile-changing mode
-                                t.Type = buildModeTile;
+                                t.Type = _buildModeTile;
                             }
                             
                         }
@@ -146,42 +138,23 @@ namespace Controllers
                 }
             }
         }
-
-
-        //private void UpdateCursor()
-        //{
-        //    // Update tile selection position
-        //    Tile tileUnderMouse = WorldController.Instance.GetTileAtWorldCoord(currFramePosition);
-        //    if (tileUnderMouse != null)
-        //    {
-        //        circleCursor.SetActive(true);
-        //        Vector3 cursorPosition = new Vector3(tileUnderMouse.X, tileUnderMouse.Y, 0);
-        //        circleCursor.transform.position = cursorPosition;
-        //    }
-        //    else
-        //    {
-        //        circleCursor.SetActive(false);
-        //    }
-        //}
-
-        
         
         public void SetMode_BuildFloor()
         {
-            buildModeIsObjects = false;
-            buildModeTile = TileType.Floor;
+            _buildModeIsObjects = false;
+            _buildModeTile = TileType.Floor;
         }
 
         public void SetMode_Bulldoze()
         {
-            buildModeIsObjects = false;
-            buildModeTile = TileType.Empty;
+            _buildModeIsObjects = false;
+            _buildModeTile = TileType.Empty;
         }
 
         public void SetMode_BuildInstalledObject(string objectType)
         {
-            buildModeIsObjects = true;
-            buildModeObjectType = objectType;
+            _buildModeIsObjects = true;
+            _buildModeObjectType = objectType;
         }
     }
 }

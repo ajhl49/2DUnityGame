@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Furnitures>
+    <Furniture objectType="station_wall_black">
+        <Name>Basic Wall</Name>
+        <MovementCost>0</MovementCost>
+        <Width>1</Width>
+        <Height>1</Height>
+        <LinksToNeighbors>true</LinksToNeighbors>
+    </Furniture>
+</Furnitures>
+
+
+
+
+
+
+

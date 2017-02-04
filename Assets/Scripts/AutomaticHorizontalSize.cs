@@ -1,21 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AutomaticHorizontalSize : MonoBehaviour
 {
 
-    public float childWidth = 150f;
+    public float ChildWidth = 150f;
 
 	// Use this for initialization
-	void Start () {
+	private void Start () {
         AdjustSize();
     }
 
     public void AdjustSize()
     {
-        var size = this.GetComponent<RectTransform>().sizeDelta;
-        size.x = this.transform.childCount * childWidth;
-        this.GetComponent<RectTransform>().sizeDelta = size;
+        var size = GetComponent<RectTransform>().sizeDelta;
+        size.x = transform.childCount * ChildWidth;
+        GetComponent<RectTransform>().sizeDelta = size;
     }
 }

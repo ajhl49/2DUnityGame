@@ -1,48 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Debug = UnityEngine.Debug;
+using System.IO;
+using System.Xml;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class World
 {
+    public static World WorldInstance { get; protected set; }
+
     private Tile[,] tiles;
 
     public int Width { get; private set; }
 
     public int Height { get; private set; }
+    
+    public event Action<Tile> TileChanged;
+    public event Action<Furniture> FurnitureCreated;
 
-    private Action<Furniture> cbInstalledObjectCreated;
+    public List<Furniture> Furnitures;
 
-    private Dictionary<string, Furniture> installedObjectPrototypes;
+    private Dictionary<string, Furniture> furnitureObjectPrototypes;
 
     public World(int width = 100, int height = 100)
     {
-        Width = width;
-        Height = height;
-
-        tiles = new Tile[width,height];
-
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                tiles[x,y] = new Tile(this, x, y);
-            }
-        }
+        
+        SetupWorld(width, height);
 
         Debug.Log("World created with " + (width*height) + " tiles.");
 
-        CreateInstalledObjectPrototypes();
+        CreateFurniturePrototypes();
     }
 
-    private void CreateInstalledObjectPrototypes()
+    private void SetupWorld(int width, int height)
     {
-        installedObjectPrototypes = new Dictionary<string, Furniture>();
+        WorldInstance = this;
 
-        var wallPrototype = Furniture.CreatePrototype("station_wall_black", 0, 1, 1, true);
+        Width = width;
+        Height = height;
 
-        installedObjectPrototypes.Add("station_wall_black", wallPrototype);
+        tiles = new Tile[width, height];
+
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                tiles[x, y] = new Tile(x, y);
+                tiles[x, y].TileTypeChanged += OnTileChanged;
+            }
+        }
+
+        CreateFurniturePrototypes();
+
+        Furnitures = new List<Furniture>();
+    }
+
+    private void CreateFurniturePrototypes()
+    {
+        furnitureObjectPrototypes = new Dictionary<string, Furniture>();
+
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Data");
+        filePath = Path.Combine(filePath, "Furniture.xml");
+        string furnitureXmlText = File.ReadAllText(filePath);
+
+        XmlTextReader reader = new XmlTextReader(new StringReader(furnitureXmlText));
+
+        int furnCount = 0;
+        if (reader.ReadToDescendant("Furnitures"))
+        {
+            if (reader.ReadToDescendant("Furniture"))
+            {
+                do
+                {
+                    furnCount++;
+
+                    Furniture furn = new Furniture();
+                    furn.ReadXmlPrototype(reader);
+
+                    furnitureObjectPrototypes[furn.ObjectType] = furn;
+                } while (reader.ReadToNextSibling("Furniture"));
+            }
+            else
+            {
+                Debug.LogError("The furniture prototype definition file doesn't have any 'Furniture' elements.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Did not find a 'Furniture' element in the prototype definition file.");
+        }
+
+        Debug.Log("Furniture prototypes read: " + furnCount);
     }
 
     /// <summary>
@@ -77,37 +125,48 @@ public class World
         return tiles[x, y];
     }
 
-    public void PlaceInstalledObject(string objectType, Tile tile)
+    public Furniture PlaceFurniture(string objectType, Tile tile)
     {
         // TODO: This function assumes 1x1 tiles -- change this later
 
-        if (installedObjectPrototypes.ContainsKey(objectType) == false)
+        if (furnitureObjectPrototypes.ContainsKey(objectType) == false)
         {
-            Debug.LogError("installedObjectPrototypes doesn't contain a proto for key: " + objectType);
-            return;
+            Debug.LogError("furnitureObjectPrototypes doesn't contain a proto for key: " + objectType);
+            return null;
         }
 
-        var installedObject = Furniture.PlaceInstance(installedObjectPrototypes[objectType], tile);
+        var furn = Furniture.PlaceInstance(furnitureObjectPrototypes[objectType], tile);
 
-        if (installedObject == null)
+        if (furn == null)
         {
             // Failed to place object -- most likely an installed object was already placed
-            return;
+            return null;
         }
 
-        if (cbInstalledObjectCreated != null)
+        if (FurnitureCreated != null)
         {
-            cbInstalledObjectCreated(installedObject);
+            FurnitureCreated(furn);
         }
+
+        return furn;
     }
 
-    public void RegisterInstalledObjectCreated(Action<Furniture> callbackFunction)
+    public void OnTileChanged(Tile t)
     {
-        cbInstalledObjectCreated += callbackFunction;
+        if (TileChanged == null)
+            return;
+
+        TileChanged(t);
     }
 
-    public void UnregisterInstalledObjectCreated(Action<Furniture> callbackFunction)
+    public Furniture GetFurniturePrototype(string objectType)
     {
-        cbInstalledObjectCreated -= callbackFunction;
+        if (furnitureObjectPrototypes.ContainsKey(objectType) == false)
+        {
+            Debug.LogError("No furniture with type: " + objectType);
+            return null;
+        }
+
+        return furnitureObjectPrototypes[objectType];
     }
 }

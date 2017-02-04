@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sprites>
+	<Sprite name="station_wall_black_EW_1"     x="64"  y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_EW_2"     x="96"  y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_NS_1"     x="128" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_NS_2"     x="160" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_NW_1"     x="192" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_NE_1"     x="224" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_SW_1"     x="256" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_ES_1"     x="288" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_ESW_1"    x="320" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_NEW_1"    x="352" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_NES_1"    x="384" y="128" w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_NSW_1"    x="0"   y="96"  w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_S_1"      x="288" y="96"  w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_N_1"      x="320" y="96"  w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_E_1"      x="352" y="96"  w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_W_1"      x="384" y="96"  w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black_NESW_1"   x="96"  y="32"  w="32" h="32" pixelsPerUnit="32" />
+	<Sprite name="station_wall_black__1"       x="128" y="32"  w="32" h="32" pixelsPerUnit="32" />
+</Sprites>
